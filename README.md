@@ -1,3 +1,5 @@
 # Rambam
 
-1. Rambam - [Kidush Ha-Chodesh chapter 6](molad.md).
+1. [Kidush Ha-Chodesh chapter 6](molad.md).
+
+Any other ideas? Open an issue.
