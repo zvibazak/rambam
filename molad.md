@@ -6,6 +6,10 @@
 
 ## מחלקת עזר
 ```python
+PARTS_IN_HOUR = 1080
+HOURS_IN_DAY = 24
+DAYS = 7
+
 class Molad_date():
 	def __init__(self, days, hours, parts, remove_days=True):
 		self.days, self.hours, self.parts = days, hours, parts
