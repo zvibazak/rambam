@@ -4,6 +4,52 @@
 
 * The text is from [wikisource](https://he.wikisource.org/wiki/%D7%A8%D7%9E%D7%91%22%D7%9D_%D7%94%D7%9C%D7%9B%D7%95%D7%AA_%D7%A7%D7%99%D7%93%D7%95%D7%A9_%D7%94%D7%97%D7%95%D7%93%D7%A9_%D7%95)
 
+## מחלקת עזר
+```python
+class Molad_date():
+	def __init__(self, days, hours, parts, remove_days=True):
+		self.days, self.hours, self.parts = days, hours, parts
+		self.remove_days = remove_days
+
+	def __add__(self, o):
+		new_parts = self.parts + o.parts
+		new_hours = self.hours + o.hours
+		new_days = self.days + o.days
+
+		if new_parts > PARTS_IN_HOUR:
+			new_hours += new_parts // PARTS_IN_HOUR
+			new_parts = new_parts % PARTS_IN_HOUR
+
+		if new_hours > HOURS_IN_DAY: 
+			new_days += new_hours // HOURS_IN_DAY
+			new_hours = new_hours % HOURS_IN_DAY
+
+		if new_parts<0:
+			new_hours -= 1
+			new_parts += PARTS_IN_HOUR
+
+		if new_hours<0:
+			new_days -= 1
+			new_hours += HOURS_IN_DAY
+
+		if self.remove_days:
+			new_days = new_days % DAYS
+
+		return Molad_date(new_days, new_hours, new_parts)
+
+	def __sub__(self, o):
+		return self+Molad_date(-o.days,-o.hours,-o.parts)
+
+	def __mul__(self,  times: int):
+		new_res=self
+		for x in range(1, times):
+			new_res = self+new_res
+		return new_res
+
+	def __str__(self):
+		return f'{self.days} days, {self.hours} hours and {self.parts} parts'
+```
+
 ## הלכה א
 <p dir='rtl' align='right'>
 בזמן שעושין על הראייה היו מחשבין ויודעין שעה שיתקבץ בו הירח עם החמה בדקדוק הרבה כדרך שהאיצטגנינין עושין. כדי לידע אם יראה הירח או לא יראה. ותחלת אותו החשבון הוא החשבון שמחשבין אותו בקירוב ויודעין שעת קיבוצן בלא דקדוק אלא במהלכם האמצעי הוא הנקרא מולד. ועיקרי החשבון שמחשבין בזמן שאין שם בית דין שיקבעו בו על הראייה והוא חשבון שאנו מחשבין היום הוא הנקרא עיבור.
@@ -56,7 +102,6 @@ print(f'Moon month is {moon_month}')
 # Output:
 # Moon month is 29 days, 12 hours and 793 parts
 ```
-* ראה בהלכה ט' את ההגדרה של המחלקה `Molad_date()`
 * עיין עוד: https://en.wikipedia.org/wiki/Lunar_month
 
 ## הלכה ד
@@ -172,54 +217,31 @@ FIRST_MOLAD = Molad_date(2,5,204)
 
 ## הלכה ט
 <p dir='rtl' align='right'>
-בכל החשבונות האלו שתדע מהן המולד. כשתוסיף שארית עם שארית כשיתקבץ מן החלקים אלף ושמנים תשליך שעה אחת ותוסיף אותו למנין השעות. וכשיתקבץ מן השעות ארבע ועשרים תשליך יום ותוסיף ממנו למנין הימים. וכשיתקבץ מן הימים יותר על שבעה תשליך שבעה מן המנין ותניח השאר. שאין אנו מחשבין לידע מניין הימים אלא לידע באי זה יום מימי השבוע ובאי זה שעה ואי זה חלק יהיה המולד.
+בכל החשבונות האלו שתדע מהן המולד. כשתוסיף שארית עם שארית כשיתקבץ מן החלקים אלף ושמנים תשליך שעה אחת ותוסיף אותו למנין השעות. 
 </p>
 
 ```python
-class Molad_date():
-	def __init__(self, days, hours, parts, remove_days=True):
-		self.days, self.hours, self.parts = days, hours, parts
-		self.remove_days = remove_days
-
-	def __add__(self, o):
-		new_parts = self.parts + o.parts
-		new_hours = self.hours + o.hours
-		new_days = self.days + o.days
-
-		if new_parts > PARTS_IN_HOUR:
-			new_hours += new_parts // PARTS_IN_HOUR
-			new_parts = new_parts % PARTS_IN_HOUR
-
-		if new_hours > HOURS_IN_DAY: 
-			new_days += new_hours // HOURS_IN_DAY
-			new_hours = new_hours % HOURS_IN_DAY
-
-		if new_parts<0:
-			new_hours -= 1
-			new_parts += PARTS_IN_HOUR
-
-		if new_hours<0:
-			new_days -= 1
-			new_hours += HOURS_IN_DAY
-
-		if self.remove_days:
-			new_days = new_days % DAYS
-
-		return Molad_date(new_days, new_hours, new_parts)
-
-	def __sub__(self, o):
-		return self+Molad_date(-o.days,-o.hours,-o.parts)
-
-	def __mul__(self,  times: int):
-		new_res=self
-		for x in range(1, times):
-			new_res = self+new_res
-		return new_res
-
-	def __str__(self):
-		return f'{self.days} days, {self.hours} hours and {self.parts} parts'
-
+if new_parts > PARTS_IN_HOUR:
+	new_hours += new_parts // PARTS_IN_HOUR
+	new_parts = new_parts % PARTS_IN_HOUR
 ```
+
+
+<p dir='rtl' align='right'>
+וכשיתקבץ מן השעות ארבע ועשרים תשליך יום ותוסיף ממנו למנין הימים. וכשיתקבץ מן הימים יותר על שבעה תשליך שבעה מן המנין ותניח השאר. 
+</p>
+```python
+if new_hours > HOURS_IN_DAY: 
+	new_days += new_hours // HOURS_IN_DAY
+	new_hours = new_hours % HOURS_IN_DAY
+
+if self.remove_days:
+	new_days = new_days % DAYS
+```
+
+<p dir='rtl' align='right'>
+שאין אנו מחשבין לידע מניין הימים אלא לידע באי זה יום מימי השבוע ובאי זה שעה ואי זה חלק יהיה המולד.
+</p>
 
 ## הלכה י
 <p dir='rtl' align='right'>
