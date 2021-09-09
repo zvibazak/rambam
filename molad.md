@@ -230,6 +230,7 @@ if new_parts > PARTS_IN_HOUR:
 <p dir='rtl' align='right'>
 וכשיתקבץ מן השעות ארבע ועשרים תשליך יום ותוסיף ממנו למנין הימים. וכשיתקבץ מן הימים יותר על שבעה תשליך שבעה מן המנין ותניח השאר. 
 </p>
+
 ```python
 if new_hours > HOURS_IN_DAY: 
 	new_days += new_hours // HOURS_IN_DAY
