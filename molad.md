@@ -335,9 +335,8 @@ def get_molad(year):
                 else:
                         res = res + regular_reminder
         return res 
-
-#why this -10 hours??
-print(f'Tishri Molad will be on {get_molad(5782)-Molad_date(0,10,0)}')
+correct_to_our_calender = Molad_date(0,6,0)
+print(f'Tishri Molad will be on {get_molad(5782)+correct_to_our_calender}')
 print(f'Heshvan Molad will be on {get_molad(5782)+Molad_date(1,12,793)-Molad_date(0,10,0)}')
 
 # Output:
