@@ -4,55 +4,7 @@
 
 * The text is from [wikisource](https://he.wikisource.org/wiki/%D7%A8%D7%9E%D7%91%22%D7%9D_%D7%94%D7%9C%D7%9B%D7%95%D7%AA_%D7%A7%D7%99%D7%93%D7%95%D7%A9_%D7%94%D7%97%D7%95%D7%93%D7%A9_%D7%95)
 
-## מחלקת עזר
-```python
-PARTS_IN_HOUR = 1080
-HOURS_IN_DAY = 24
-DAYS = 7
-
-class Molad_date():
-	def __init__(self, days, hours, parts, remove_days=True):
-		self.days, self.hours, self.parts = days, hours, parts
-		self.remove_days = remove_days
-
-	def __add__(self, o):
-		new_parts = self.parts + o.parts
-		new_hours = self.hours + o.hours
-		new_days = self.days + o.days
-
-		if new_parts > PARTS_IN_HOUR:
-			new_hours += new_parts // PARTS_IN_HOUR
-			new_parts = new_parts % PARTS_IN_HOUR
-
-		if new_hours > HOURS_IN_DAY: 
-			new_days += new_hours // HOURS_IN_DAY
-			new_hours = new_hours % HOURS_IN_DAY
-
-		if new_parts<0:
-			new_hours -= 1
-			new_parts += PARTS_IN_HOUR
-
-		if new_hours<0:
-			new_days -= 1
-			new_hours += HOURS_IN_DAY
-
-		if self.remove_days:
-			new_days = new_days % DAYS
-
-		return Molad_date(new_days, new_hours, new_parts)
-
-	def __sub__(self, o):
-		return self+Molad_date(-o.days,-o.hours,-o.parts)
-
-	def __mul__(self,  times: int):
-		new_res=self
-		for x in range(1, times):
-			new_res = self+new_res
-		return new_res
-
-	def __str__(self):
-		return f'{self.days} days, {self.hours} hours and {self.parts} parts'
-```
+* ראה להלן הגדרת המחלקה `Molad_date`.
 
 ## הלכה א
 <p dir='rtl' align='right'>
@@ -100,7 +52,7 @@ print(divisorGenerator(1080))
 </p>
 
 ```python
-moon_month = Molad_date(29,12,793, remove_days=False)
+moon_month = Molad_date(29,12,793, remove_days=False) #remove_days - to leave only the reminder from seven days or not.
 print(f'Moon month is {moon_month}')
 
 # Output:
@@ -347,4 +299,54 @@ print(f'Heshvan Molad will be on {get_molad(5782)+Molad_date(1,12,793)-Molad_dat
 # Output:
 # Tishri Molad will be on 3 days, 5 hours and 497 parts
 # Heshvan Molad will be on 4 days, 18 hours and 210 parts
+```
+
+## מחלקת עזר
+```python
+PARTS_IN_HOUR = 1080
+HOURS_IN_DAY = 24
+DAYS = 7
+
+class Molad_date():
+	def __init__(self, days, hours, parts, remove_days=True):
+		self.days, self.hours, self.parts = days, hours, parts
+		self.remove_days = remove_days
+
+	def __add__(self, o):
+		new_parts = self.parts + o.parts
+		new_hours = self.hours + o.hours
+		new_days = self.days + o.days
+
+		if new_parts > PARTS_IN_HOUR:
+			new_hours += new_parts // PARTS_IN_HOUR
+			new_parts = new_parts % PARTS_IN_HOUR
+
+		if new_hours > HOURS_IN_DAY: 
+			new_days += new_hours // HOURS_IN_DAY
+			new_hours = new_hours % HOURS_IN_DAY
+
+		if new_parts<0:
+			new_hours -= 1
+			new_parts += PARTS_IN_HOUR
+
+		if new_hours<0:
+			new_days -= 1
+			new_hours += HOURS_IN_DAY
+
+		if self.remove_days:
+			new_days = new_days % DAYS
+
+		return Molad_date(new_days, new_hours, new_parts)
+
+	def __sub__(self, o):
+		return self+Molad_date(-o.days,-o.hours,-o.parts)
+
+	def __mul__(self,  times: int):
+		new_res=self
+		for x in range(1, times):
+			new_res = self+new_res
+		return new_res
+
+	def __str__(self):
+		return f'{self.days} days, {self.hours} hours and {self.parts} parts'
 ```
