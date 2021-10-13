@@ -113,8 +113,7 @@ print(f'The diff between sun_year and moon_year is {sun_year-moon_year_regular}'
 
 ```python
 moon_month = Molad_date(29,12,793)
-four_weeks = Molad_date(7*4, 0, 0)
-print(f'Moon month reminder is {moon_month - four_weeks}')
+print(f'Moon month reminder is {moon_month}')
 
 # Output:
 # Moon month reminder is 1 days, 12 hours and 793 parts
