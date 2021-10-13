@@ -219,7 +219,7 @@ print(f'Full cycle reminder is {full_cycle_sun-full_cycle_moon}')
 # Output:
 #Full cycle reminder is 0 days, 1 hours and 485 parts
 ```
-* צ"ע למה צריך את זה?
+* צ"ע למה צריך את זה? ראה לקמן פרק ט, ד
 
 ## הלכה יא
 <p dir='rtl' align='right'>
@@ -317,11 +317,11 @@ class Molad_date():
 		new_hours = self.hours + o.hours
 		new_days = self.days + o.days
 
-		if new_parts > PARTS_IN_HOUR:
+		if new_parts >= PARTS_IN_HOUR:
 			new_hours += new_parts // PARTS_IN_HOUR
 			new_parts = new_parts % PARTS_IN_HOUR
 
-		if new_hours > HOURS_IN_DAY: 
+		if new_hours >= HOURS_IN_DAY: 
 			new_days += new_hours // HOURS_IN_DAY
 			new_hours = new_hours % HOURS_IN_DAY
 
