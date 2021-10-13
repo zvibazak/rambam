@@ -17,11 +17,11 @@ class Molad_date():
 		new_hours = self.hours + o.hours
 		new_days = self.days + o.days
 
-		if new_parts > PARTS_IN_HOUR:
+		if new_parts >= PARTS_IN_HOUR:
 			new_hours += new_parts // PARTS_IN_HOUR
 			new_parts = new_parts % PARTS_IN_HOUR
 
-		if new_hours > HOURS_IN_DAY: 
+		if new_hours >= HOURS_IN_DAY: 
 			new_days += new_hours // HOURS_IN_DAY
 			new_hours = new_hours % HOURS_IN_DAY
 
